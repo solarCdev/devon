@@ -56,6 +56,7 @@ function drawGlitch() {
         }
     }
 
+
     // 4. 전체 화면을 가끔 지직거리게 만듦
     if (Math.random() > 0.98) {
         ctx.fillStyle = "rgba(57, 255, 20, 0.1)";

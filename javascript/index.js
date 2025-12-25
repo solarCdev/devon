@@ -12,6 +12,32 @@ function init() {
 window.addEventListener('resize', init);
 init();
 
+// 모바일 터치 시작
+window.addEventListener('touchstart', (e) => {
+    if (typeof mouse !== 'undefined') {
+        mouse.active = true;
+        const touch = e.touches[0];
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+    }
+}, { passive: true });
+
+// 모바일 터치 이동
+window.addEventListener('touchmove', (e) => {
+    if (typeof mouse !== 'undefined') {
+        const touch = e.touches[0];
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+    }
+}, { passive: false });
+
+// 터치 종료
+window.addEventListener('touchend', () => {
+    if (typeof mouse !== 'undefined') {
+        mouse.active = false;
+    }
+});
+
 window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -47,5 +73,26 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 block: 'start'      // 섹션의 시작 지점에 맞춤
             });
         }
+    });
+});
+
+const cursor = document.getElementById('cursor-dot');
+
+// [1] 기본 마우스 이동 로직 (기존 코드 유지)
+window.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
+// [2] 커서 확대 이벤트 적용 대상 선정
+// 링크(a), 버튼, 모든 캔버스, 그리고 설명 텍스트들
+const hoverTargets = document.querySelectorAll('a, button, canvas, h2, h3, .menu-trigger');
+
+hoverTargets.forEach(target => {
+    target.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+    });
+    target.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
     });
 });

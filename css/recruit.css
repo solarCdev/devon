@@ -1,18 +1,11 @@
-.form-neon-wrapper {
-    border: 2px solid var(--point-color);
-    box-shadow: 0 0 15px var(--point-color), inset 0 0 10px rgba(255, 0, 255, 0.2);
-    position: relative;
-    /* iframe 스크롤 이슈 방지 */
-    -webkit-overflow-scrolling: touch;
-}
-
-.recruit-header {
-    text-align: center;
-    margin-bottom: 50px;
+#recruit {
+    padding-top: 120px;
+    background-color: var(--bg-color);
+    overflow: visible !important; /* 필수: sticky 작동 보장 */
 }
 
 .recruit-action-area {
-    margin-top: 30px;
+    margin: 30px 10% 0 10%; /* 좌우 여백 추가 */
     padding: 20px;
     border: 1px dashed var(--main-color);
     background: rgba(57, 255, 20, 0.05);
@@ -41,7 +34,7 @@
 }
 
 .direct-apply-btn:hover {
-    background-color: var(--point-color); /* 호버 시 핫핑크로 변경 */
+    background-color: var(--point-color);
     box-shadow: 0 0 25px var(--point-color);
     transform: scale(1.05);
     color: white;
@@ -52,9 +45,289 @@
     .recruit-action-area {
         text-align: center;
         margin-bottom: 40px;
+        padding: 15px;
     }
     .direct-apply-btn {
-        width: 100%; /* 모바일에서는 꽉 차게 */
-        font-size: 28px;
+        width: 100%; 
+        font-size: 1.2rem; /* 28px는 너무 클 수 있어 유동적으로 조정 */
+    }
+    .form-neon-wrapper iframe {
+        height: 75vh; /* 모바일은 주소창 등을 고려해 높이 더 축소 */
+    }
+}
+
+#recruit {
+    padding: 100px 20px;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recruit-form-container {
+    width: 100%;
+    max-width: 900px; /* 너무 퍼지지 않게 적당한 너비 유지 */
+    margin-top: 50px;
+}
+
+.custom-devon-form {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--main-color);
+    padding: 60px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* 터미널 느낌을 위해 왼쪽 상단에 가짜 버튼 장식 추가 */
+.custom-devon-form::before {
+    content: "● ● ●";
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: var(--main-color);
+    font-size: 10px;
+    letter-spacing: 5px;
+    opacity: 0.5;
+}
+
+.input-field {
+    margin-bottom: 40px;
+}
+
+.input-field label {
+    font-family: 'Galmuri';
+    color: var(--main-color);
+    display: block;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    text-shadow: 0 0 5px var(--main-color);
+}
+
+.input-field input, 
+.input-field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.3);
+    padding: 10px 0;
+    color: #fff;
+    font-family: 'Galmuri';
+    font-size: 1.1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-field input:focus, 
+.input-field textarea:focus {
+    border-bottom: 1px solid var(--point-color);
+}
+
+.form-submit-btn {
+    width: 100%;
+    padding: 20px;
+    background: var(--main-color);
+    color: #000;
+    border: none;
+    font-family: 'Galmuri';
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-submit-btn:hover {
+    background: var(--point-color);
+    box-shadow: 0 0 20px var(--point-color);
+}
+
+.recruit-header {
+    text-align: center;
+}
+
+.recruit-action-area {
+    margin-top: 60px;
+    text-align: center;
+}
+
+/* 라디오 그룹 레이아웃 */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+/* 라디오 컨테이너 */
+.radio-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Galmuri';
+    font-size: 0.9rem;
+    color: #fff;
+    position: relative;
+    user-select: none;
+    transition: color 0.3s;
+}
+
+/* 기본 라디오 버튼 숨기기 */
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* 커스텀 라디오 외형 */
+.custom-radio {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--main-color);
+    border-radius: 50%; /* 동그란 모양 */
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* 마우스 올렸을 때 효과 */
+.radio-container:hover .custom-radio {
+    box-shadow: 0 0 10px var(--main-color);
+}
+
+.radio-container:hover {
+    color: var(--main-color);
+}
+
+/* 선택되었을 때 (Checked) */
+.radio-container input:checked + .custom-radio {
+    background-color: var(--main-color);
+    box-shadow: 0 0 15px var(--main-color);
+}
+
+/* 선택되었을 때 내부 점(Dot) - 선택 사항 */
+.radio-container input:checked + .custom-radio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #000; /* 안쪽 점은 검정색으로 대비 */
+}
+
+/* 선택 시 텍스트 색상 강조 */
+.radio-container input:checked ~ .radio-text {
+    color: var(--main-color);
+    text-shadow: 0 0 5px var(--main-color);
+}
+
+/* 버튼 호버 시 살짝 떨리는 효과 */
+.form-submit-btn:hover {
+    animation: button-glitch 0.2s infinite;
+}
+
+@keyframes button-glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* 폼이 사라질 때 사용할 클래스 */
+.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+/* 성공 메시지 스타일 */
+.success-overlay {
+    text-align: center;
+    padding: 60px;
+    border: 2px solid var(--main-color);
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 30px var(--main-color);
+    animation: zoomIn 0.5s ease-out;
+}
+
+.success-content h1 {
+    font-family: 'Galmuri';
+    color: var(--main-color);
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--main-color);
+}
+
+.welcome-msg {
+    margin-top: 30px;
+    color: var(--point-color);
+    font-weight: bold;
+    font-family: 'Galmuri';
+    letter-spacing: 2px;
+}
+
+.reload-btn {
+    margin-top: 40px;
+    padding: 15px 30px;
+    background: transparent;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    font-family: 'Galmuri';
+    cursor: pointer;
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* 성공 메시지 초기 상태: 숨김 */
+.success-overlay {
+    display: none; /* JS에서 .show가 붙기 전까지는 공간도 차지하지 않음 */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 튕기는 듯한 효과 */
+}
+
+/* JS가 이 클래스를 추가하면 나타남 */
+.success-overlay.show {
+    display: block !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* 클릭(제출 시작) 시: JS에서 활성화될 수 있음 */
+.form-submit-btn:disabled {
+    background: #333 !important;
+    color: #888 !important;
+    cursor: wait !important;
+    box-shadow: none !important;
+    transform: translateY(0);
+}
+
+/* 모바일 대응 (화면 너비 768px 이하) */
+@media (max-width: 768px) {
+    .success-content h1 {
+        font-size: 2rem; /* ACCESS_GRANTED 크기 축소 */
+        word-break: break-all;
+    }
+
+    .welcome-msg {
+        font-size: 0.85rem; /* 글자 크기 축소 */
+        letter-spacing: 1px; /* 자간 축소 */
+        white-space: normal; /* 자동 줄바꿈 허용 */
+        word-break: break-all; /* 단어가 길면 강제 줄바꿈 */
+        line-height: 1.4;
+        display: block;
+        padding: 0 10px;
+    }
+
+    .success-overlay {
+        padding: 40px 20px; /* 내부 여백 조절 */
     }
 }

@@ -20,6 +20,18 @@
             font-weight: 400;
         }
 
+        /* 모든 요소에 적용되는 선택 색상 */
+        ::selection {
+            background-color: var(--main-color); /* 형광 연두 배경 */
+            color: var(--bg-color);              /* 검정색 글자 */
+        }
+
+        /* 파이어폭스 브라우저 대응 */
+        ::-moz-selection {
+            background-color: var(--main-color);
+            color: var(--bg-color);
+        }
+
         /* 1. 기본 스타일 및 테마 설정 */
         :root {
             --bg-color: #000000;
@@ -66,8 +78,8 @@
         }
         /* 3. 색상 반전 커서 */
         #cursor-dot {
-            width: 150px;
-            height: 150px;
+            width: 20px;
+            height: 20px;
             background-color: white;
             border-radius: 50%;
             position: fixed;
@@ -75,8 +87,12 @@
             z-index: 1000;
             mix-blend-mode: difference; /* 색상 반전 핵심 */
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease-out;
-    
+            transition: width 0.3s ease, height 0.3s ease, transform 0.1s ease-out;
+        }
+
+        #cursor-dot.active {
+            width: 120px; /* 원하는 확대 크기 */
+            height: 120px;
         }
 
 
@@ -144,6 +160,10 @@
             color: var(--point-color);
         }
 
+        button:hover, .direct-apply-btn:hover {
+            font-size: 24px;
+        }
+
     </style>
     <link rel="stylesheet" href="./css/about.css">
     <link rel="stylesheet" href="./css/nav.css">
@@ -186,7 +206,7 @@
             <p>[-이과를 위한 코딩의 필요충분조건-]</p>
             <!-- <h1 class="glitch-title" style="font-family: 'Galmuri'; background: black;">DEV-ON</h1> -->
             <p>2026 데브온과 함께하실 분을 구합니다.</p>
-            <p class="cursor-blink">☆☆☆</p>
+            <p class="cursor-blink">_</p>
         </div>
     </section>
 
@@ -238,21 +258,88 @@
             <h2>02. RECRUIT</h2>
             <p class="recruit-sub">시스템에 접속하여 부원 등록을 시작하십시오.</p>
         </div>
-        
+
+        <div class="recruit-form-container">
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+            
+            <form action="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/formResponse" 
+                    method="POST" 
+                    target="hidden_iframe" 
+                    onsubmit="submitted=true;" 
+                    class="custom-devon-form">
+                
+                <div class="form-inner">
+                    <div class="input-field">
+                        <label>학번</label>
+                        <input type="number" name="entry.179465435" required placeholder="(ex. 1204)">
+                    </div>
+
+                    <div class="input-field">
+                        <label>이름</label>
+                        <input type="text" name="entry.1347704672" required placeholder="(ex. 권호준)">
+                    </div>
+
+                    <div class="input-field">
+                        <label>자신의 코딩 역량은?</label>
+                        <div class="radio-group">
+                            <label class="radio-container">
+                                <input type="radio" name="entry.411940431" value="엔트리와 스크래치도 안해봤다" required>
+                                <span class="custom-radio"></span>
+                                엔트리와 스크래치도 안해봤다
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="entry.411940431" value="블록코딩(엔트리, 스크래치)는 해봤다">
+                                <span class="custom-radio"></span>
+                                블록코딩(엔트리, 스크래치)는 해봤다
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="entry.411940431" value="파이썬으로 print('hello world')를 실행해 본 적이 있다">
+                                <span class="custom-radio"></span>
+                                파이썬으로 print('hello world')를 실행해 본 적이 있다
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="entry.411940431" value="백준이나 코드업 등 문제를 풀어 보았거나, 코딩에 어느 정도 자신이 있다">
+                                <span class="custom-radio"></span>
+                                백준이나 코드업 등 문제를 풀어 보았거나, 코딩에 어느 정도 자신이 있다
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="entry.411940431" value="기장 정도는 쉽게 이길 수 있다">
+                                <span class="custom-radio"></span>
+                                기장 정도는 쉽게 이길 수 있다
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <label>자기 소개</label>
+                        <textarea name="entry.447971185" placeholder="지원 동기 및 자기소개를 입력하세요(선택)"></textarea>
+                    </div>
+
+                    <button type="submit" class="form-submit-btn">지원서_제출하기();</button>
+                </div>
+            </form>
+
+        <div id="success-message" class="success-overlay" style="display: none;">
+            <div class="success-content">
+                <h1 class="glitch-text">ACCESS_GRANTED</h1>
+                <p>지원서가 성공적으로 데이터베이스에 업로드되었습니다.</p>
+                <p class="welcome-msg">WELCOME TO DEV-ON // 2026</p>
+                <button onclick="location.reload()" class="reload-btn">다른_응답_제출하기();</button>
+            </div>
+        </div>
+
         <div class="recruit-container">
             <div class="recruit-action-area">
-                <p class="status-msg">if "아래 폼이 보이지 않아요":</p>
+                <p class="status-msg">if "위 지원서가 작동하지 않아요":</p>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform" 
                    target="_blank" 
                    class="direct-apply-btn">
-                    구글 폼으로 이동하기
+                    구글_폼으로_이동하기();
                 </a>
             </div>
-    
-            <div class="form-neon-wrapper">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform?usp=header"></iframe>
-            </div>
         </div>
+
+
     </section>
 
     <footer>
@@ -264,5 +351,6 @@
     <script src="./javascript/hero.js"></script>
     <script src="./javascript/about.js"></script>
     <script src="./javascript/nav.js"></script>
+    <script src="./javascript/recruit.js"></script>
 </body>
 </html>
