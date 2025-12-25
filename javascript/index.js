@@ -32,3 +32,20 @@ iframe.addEventListener('mouseenter', () => {
 iframe.addEventListener('mouseleave', () => {
     dot.style.display = 'block';
 });
+
+// 모든 내부 링크(anchor)에 대해 부드러운 스크롤 적용
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault(); // 기본 순간이동 차단
+
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth', // 부드럽게 이동
+                block: 'start'      // 섹션의 시작 지점에 맞춤
+            });
+        }
+    });
+});
