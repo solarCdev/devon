@@ -1,0 +1,60 @@
+.form-neon-wrapper {
+    border: 2px solid var(--point-color);
+    box-shadow: 0 0 15px var(--point-color), inset 0 0 10px rgba(255, 0, 255, 0.2);
+    position: relative;
+    /* iframe 스크롤 이슈 방지 */
+    -webkit-overflow-scrolling: touch;
+}
+
+.recruit-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.recruit-action-area {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px dashed var(--main-color);
+    background: rgba(57, 255, 20, 0.05);
+}
+
+.status-msg {
+    font-family: 'Galmuri', monospace;
+    font-size: 0.8rem;
+    color: var(--main-color);
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+.direct-apply-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-family: 'Galmuri';
+    font-weight: bold;
+    color: var(--bg-color);
+    background-color: var(--main-color);
+    text-decoration: none;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px var(--main-color);
+    text-transform: uppercase;
+}
+
+.direct-apply-btn:hover {
+    background-color: var(--point-color); /* 호버 시 핫핑크로 변경 */
+    box-shadow: 0 0 25px var(--point-color);
+    transform: scale(1.05);
+    color: white;
+}
+
+/* 모바일 전용 조정 */
+@media (max-width: 900px) {
+    .recruit-action-area {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .direct-apply-btn {
+        width: 100%; /* 모바일에서는 꽉 차게 */
+        font-size: 28px;
+    }
+}

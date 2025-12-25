@@ -55,6 +55,15 @@
             pointer-events: none;
         }
 
+        @media (max-width: 900px) {
+            #cursor-dot {
+                display: none;
+            }
+
+            *{
+                cursor: default;
+            }
+        }
         /* 3. 색상 반전 커서 */
         #cursor-dot {
             width: 150px;
@@ -86,28 +95,11 @@
             border-bottom: 5px solid var(--main-color);
         }
 
-        .glitch-title {
-            font-size: 5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            border: 3px solid var(--main-color);
-            display: inline-block;
-            padding: 10px 30px;
-        }
-
         h2 {
             font-size: 2rem;
             margin-bottom: 30px;
             text-decoration: underline;
-        }
-
-        .content-box {
-            border: 1px solid var(--main-color);
-            padding: 30px;
-            margin: 20px 0;
-            background: rgba(57, 255, 20, 0.05);
+            font-family: "Galmuri";
         }
 
         /* 5. 지원서 영역 (Iframe) */
@@ -152,77 +144,114 @@
             color: var(--point-color);
         }
 
-        .terminal-style {
-            background: rgba(57, 255, 20, 0.05);
-            border: 1px dashed var(--main-color);
-            font-family: 'Courier New', Courier, monospace;
-            min-height: 200px;
-        }
-        
-        .line {
-            display: block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 2px solid var(--main-color); /* 타이핑 커서 */
-            width: 0;
-        }
-        
-        /* 타이핑 애니메이션이 끝난 후 커서 제거를 위해 클래스 제어 */
-        .line.done {
-            border-right: none;
-            width: auto;
-        }
     </style>
+    <link rel="stylesheet" href="./css/about.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/recruit.css">
 </head>
 <body>
 
     <div id="cursor-dot"></div>
 
-    <section class="hero">
-        <p>[-이과를 위한 코딩의 필요충분조건-]</p>
-        <h1 class="glitch-title" style="font-family: 'Galmuri';">DEV-ON</h1>
-        <p>2026 데브온과 함께하실 분을 구합니다.</p>
-        <p class="cursor-blink">_</p>
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <div class="nav-logo">DEV-ON // 2026</div>
+            
+            <ul class="nav-menu pc-only">
+                <li><a href="#hero">[ 00. HOME ]</a></li>
+                <li><a href="#about">[ 01. ABOUT ]</a></li>
+                <li><a href="#recruit">[ 02. RECRUIT ]</a></li>
+            </ul>
+    
+            <div class="menu-trigger" id="menu-trigger">
+                <span></span><span></span><span></span>
+            </div>
+    
+            <div class="nav-status pc-only">STATUS: ONLINE</div>
+        </div>
+    
+        <div class="mobile-overlay" id="mobile-overlay">
+            <ul class="mobile-menu">
+                <li><a href="#hero" class="mobile-link">00. HOME</a></li>
+                <li><a href="#about" class="mobile-link">01. ABOUT</a></li>
+                <li><a href="#recruit" class="mobile-link">02. RECRUIT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero" style="position: relative; overflow: hidden;">
+        <canvas id="hero-glitch-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></canvas>
+        
+        <div style="position: relative; z-index: 2; pointer-events: none;">
+            <p>[-이과를 위한 코딩의 필요충분조건-]</p>
+            <!-- <h1 class="glitch-title" style="font-family: 'Galmuri'; background: black;">DEV-ON</h1> -->
+            <p>2026 데브온과 함께하실 분을 구합니다.</p>
+            <p class="cursor-blink">☆☆☆</p>
+        </div>
     </section>
 
+
+    
     <section id="about">
-        <h2>ABOUT</h2>
-        <div class="content-box">
-            <h3>AI 딸깍도 잘해야 프로다</h3>
-            <p> 최근 스탠퍼드 컴퓨터 공학 수업에서 AI만을 이용해 코딩을 하는 내용이 나와 충격을 주었습니다. 이제 AI를 아예 사용하지 않는 것은
-                비효율적일 뿐입니다. 우리는 AI를 효과적으로 활용하되, 그것을 활용할 수 있는 역량을 만들어 주는 것을 목표로 합니다.
-                어차피 코딩 도구를 다룰 줄 모르고, 코드를 읽을 줄 모르면 코드의 실용성은 많이 떨어질 뿐더러, 아무리 좋은 AI도 본인의 의도를
-                파악하는 데에는 무리가 있거든요. 우리는 AI를 잘 사용하는 사람이 됩시다. 이 사이트 또한 AI와 함께 제작했습니다.
-            </p>
-            <img src="./com.svg" alt="computer img" class="content-image">
-        </div>
-        <div class="content-box">
-            <h3>크지 않은 동아리의 장점?</h3>
-            <p>ACA, SERAPH같은 대기업 동아리는 많은 사람들을 관리하고, 단체로 움직입니다. 하지만 우리는 개인의 의견에 경청하고 똘똘 뭉친 더 소속감 있는 동아리가
-                될 것입니다.
-            </p>
-            <div class="terminal-style" id="terminal-container">
-                <div id="terminal"></div>
+        <div class="about-container">
+            <div class="about-text-content">
+                <div class="scroll-reveal">
+                    <h2>01. ABOUT</h2>
+                    <div class="content-box">
+                        <h3>AI 딸깍도 잘해야 프로다</h3>
+                        <p>최근 스탠퍼드 컴퓨터 공학 수업에서 AI만을 이용해 코딩을 하는 내용이 나와 충격을 주었습니다. 이제 AI를 아예 사용하지 않는 것은
+                            비효율적일 뿐입니다. 우리는 AI를 효과적으로 활용하되, 그것을 활용할 수 있는 역량을 만들어 주는 것을 목표로 합니다.
+                            어차피 코딩 도구를 다룰 줄 모르고, 코드를 읽을 줄 모르면 코드의 실용성은 많이 떨어질 뿐더러, 아무리 좋은 AI도 본인의 의도를
+                            파악하는 데에는 무리가 있거든요. 우리는 AI를 잘 사용하는 사람이 됩시다. 이 사이트 또한 AI와 함께 제작했습니다.</p>
+                    </div>
+                </div>
+    
+                <div class="scroll-reveal">
+                    <div class="content-box">
+                        <h3>크지 않은 동아리의 장점?</h3>
+                        <p>ACA, SERAPH같은 대기업 동아리는 많은 사람들을 관리하고, 단체로 움직입니다. 하지만 우리는 개인의 의견에 경청하고 똘똘 뭉친 더 소속감 있는 동아리가
+                            될 것입니다.</p>
+                    </div>
+                </div>
+    
+                <div class="scroll-reveal">
+                    <div class="content-box">
+                        <h3>이과를 위한 필요충분조건</h3>
+                        <p>컴공만 데브온에 와야 하는게 아닙니다. 코딩은 시뮬레이션, 데이터 분석, 자동화 등 다양한 분야에 활용됩니다. 생기부에 자신의 진로와 코딩을 버무리면
+                            아주 맛있는 생기부가 되겠죠. 경제는 데이터 분석, 물리와 화학은 시뮬레이션, 화학은 자동화 등등. 이과이지만 아직 자세한 진로를 정하지 못하겠다면,
+                            데브온은 여러분을 위한 좋은 선택지입니다.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="content-box">
-            <h3>생기부는요?</h3>
-            <p>
-                컴공만 데브온에 와야 하는게 아닙니다. 코딩은 시뮬레이션, 데이터 분석, 자동화 등 다양한 분야에 활용됩니다. 생기부에 자신의 진로와 코딩을 버무리면
-                아주 맛있는 생기부가 되겠죠. 경제는 데이터 분석, 물리와 화학은 시뮬레이션, 화학은 자동화 등등. 이과이지만 아직 자세한 진로를 정하지 못하겠다면,
-                데브온은 여러분을 위한 좋은 선택지입니다 ♥️
-            </p>
+    
+            <div class="about-sticky-graphic">
+                <div class="glitch-image-container">
+                    <canvas id="about-scatter-canvas"></canvas>
+                    <div class="status-overlay">● Running... (마우스를 이쪽으로 올려보세요!)</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="recruit">
-        <h2>02. RECRUIT</h2>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform?usp=header&viewform?embedded=true">
-            폼이 보이지 않는다면 클릭하세요
-        </a>
-        <p>아래 양식을 작성하여 제출해 주세요. (12.20 - 1월 中)</p>
-        <div class="form-container">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform?usp=header&viewform?embedded=true">로드 중…</iframe>
+        <div class="recruit-header">
+            <h2>02. RECRUIT</h2>
+            <p class="recruit-sub">시스템에 접속하여 부원 등록을 시작하십시오.</p>
+        </div>
+        
+        <div class="recruit-container">
+            <div class="recruit-action-area">
+                <p class="status-msg">if "아래 폼이 보이지 않아요":</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform" 
+                   target="_blank" 
+                   class="direct-apply-btn">
+                    구글 폼으로 이동하기
+                </a>
+            </div>
+    
+            <div class="form-neon-wrapper">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform?usp=header"></iframe>
+            </div>
         </div>
     </section>
 
@@ -231,77 +260,9 @@
         <p>© 2026 DEV-ON. ALL RIGHTS RESERVED.</p>
     </footer>
 
-    <script>
-        // 마우스 커서 추적 스크립트
-        const dot = document.getElementById('cursor-dot');
-        
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
-        });
-
-        const iframe = document.querySelector('iframe');
-        iframe.addEventListener('mouseenter', () => {
-            dot.style.display = 'none';
-        });
-        iframe.addEventListener('mouseleave', () => {
-            dot.style.display = 'block';
-        });
-
-        const lines = [
-            "> RUN DEVON_SYSTEM.PY",
-            "> print('안녕하세요, 새로운 데브온의 부원님!')",
-            "> welcome_message = '공주사대부고 컴퓨팅 동아리 데브온에 오신 것을 환영합니다!'",
-            "> YOU = NEW_DEVON_MEMBER",
-            "> YOU.INTERESTED = TRUE",
-            "> IF (YOU.INTERESTED == TRUE) {",
-            ">    PRINT('WELCOME TO DEV-ON');",
-            "> }",
-            "> _",
-            "> WELCOME TO DEV-ON"
-        ];
-
-        const terminal = document.getElementById('terminal');
-        const container = document.getElementById('terminal-container');
-        let currentLine = 0;
-
-        function typeLine(text, index) {
-            const lineElement = document.createElement('span');
-            lineElement.className = 'line';
-            terminal.appendChild(lineElement);
-
-            let charIndex = 0;
-            // 한 글자씩 출력하는 함수
-            const typing = setInterval(() => {
-                lineElement.textContent += text[charIndex];
-                // 텍스트 길이에 맞춰 width 확장 (애니메이션 효과)
-                lineElement.style.width = "100%"; 
-                charIndex++;
-
-                if (charIndex === text.length) {
-                    clearInterval(typing);
-                    lineElement.classList.add('done'); // 커서 제거
-                    currentLine++;
-                    
-                    // 다음 줄이 있으면 실행 (약간의 딜레이)
-                    if (currentLine < lines.length) {
-                        setTimeout(() => typeLine(lines[currentLine], currentLine), 300);
-                    }
-                }
-            }, 50); // 글자 출력 속도 (낮을수록 빠름)
-        }
-
-        // 스크롤 감지 로직
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    typeLine(lines[0], 0); // 첫 번째 줄 시작
-                    observer.unobserve(entry.target); // 한 번만 실행
-                }
-            });
-        }, { threshold: 0.5 }); // 50% 정도 보일 때 시작
-
-        observer.observe(container);
-    </script>
+    <script src="./javascript/index.js"></script>
+    <script src="./javascript/hero.js"></script>
+    <script src="./javascript/about.js"></script>
+    <script src="./javascript/nav.js"></script>
 </body>
 </html>
