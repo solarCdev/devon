@@ -1,7 +1,24 @@
 #about { min-height: 180vh; padding: 120px 10%; border-bottom: 2px solid var(--main-color); }
-.about-container { display: flex; gap: 50px; position: relative; max-width: 1400px; margin: 0 auto; }
+
+
 .about-text-content { flex: 1.2; }
-.about-sticky-graphic { flex: 0.8; position: sticky; top: 150px; height: fit-content; display: flex; justify-content: center; }
+.about-container {
+    display: flex;
+    gap: 50px;
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 150vh; /* sticky가 움직일 충분한 트랙(Track) 제공 */
+}
+
+.about-sticky-graphic {
+    flex: 0.8;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 150px; /* 화면 상단에서 이만큼 떨어졌을 때 고정 */
+    height: 500px; /* 그래픽의 고정된 높이 */
+    align-self: flex-start; /* flex 라인에서 독립적으로 움직이게 함 */
+}
 
 .glitch-image-container {
     position: relative; width: 100%; max-width: 500px; aspect-ratio: 1/1;

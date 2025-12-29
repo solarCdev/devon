@@ -19,152 +19,31 @@
             src: url('./fonts/WANTEDSANS-REGULAR.OTF') format('opentype');
             font-weight: 400;
         }
-
-        /* 모든 요소에 적용되는 선택 색상 */
-        ::selection {
-            background-color: var(--main-color); /* 형광 연두 배경 */
-            color: var(--bg-color);              /* 검정색 글자 */
-        }
-
-        /* 파이어폭스 브라우저 대응 */
-        ::-moz-selection {
-            background-color: var(--main-color);
-            color: var(--bg-color);
-        }
-
-        /* 1. 기본 스타일 및 테마 설정 */
-        :root {
-            --bg-color: #000000;
-            --main-color: #39FF14; /* 형광 연두 */
-            --point-color: #FF00FF; /* 핫핑크 (포스터 포인트 컬러) */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none; /* 커스텀 커서를 위해 기본 커서 숨김 */
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--main-color);
-            font-family: 'Wanted';
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* 2. CRT 모니터 효과 (Scanlines) */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 999;
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-        }
-
-        @media (max-width: 900px) {
-            #cursor-dot {
-                display: none;
-            }
-
-            *{
-                cursor: default;
-            }
-        }
-        /* 3. 색상 반전 커서 */
-        #cursor-dot {
-            width: 20px;
-            height: 20px;
-            background-color: white;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 1000;
-            mix-blend-mode: difference; /* 색상 반전 핵심 */
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease, transform 0.1s ease-out;
-        }
-
-        #cursor-dot.active {
-            width: 120px; /* 원하는 확대 크기 */
-            height: 120px;
-        }
-
-
-        /* 4. 레이아웃 구조 */
-        section {
-            min-height: 100vh;
-            padding: 80px 10%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-bottom: 2px solid var(--main-color);
-        }
-
-        .hero {
-            text-align: center;
-            border-bottom: 5px solid var(--main-color);
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-decoration: underline;
-            font-family: "Galmuri";
-        }
-
-        /* 5. 지원서 영역 (Iframe) */
-        .form-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 40px auto;
-            border: 2px solid var(--point-color);
-        }
-
-        iframe {
-            width: 100%;
-            height: 800px;
-            border: none;
-        }
-        iframe:hover #cursor-dot {
-            display: none;
-        }
-
-        footer {
-            padding: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #555;
-        }
-
-        .content-image {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-        }
-
-        /* 애니메이션 */
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        .cursor-blink {
-            animation: blink 1s infinite;
-        }
-
-        a {
-            color: var(--point-color);
-        }
-
-        button:hover, .direct-apply-btn:hover {
-            font-size: 24px;
-        }
-
     </style>
+
+    <meta name="description" content=" 2026 신규 기수 모집 중.">
+
+    <meta name="keywords" content="데브온, DEV-ON, 코딩동아리, 2026모집">
+
+    <meta name="author" content="권호준">
+
+    <meta property="og:title" content="DEV-ON | 2026 데브온 모집">
+    <meta property="og:description" content="이과를 위한 코딩의 필요충분조건: Dev-On. 2026 신규 기수 모집 중.">
+
+    <meta property="og:image" content="https://solarcdev.github.io/devon/image/image.png">
+    <meta property="og:url" content="https://solarcdev.github.io/devon/index.html">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DEV-ON | 2026 데브온 모집">
+    <meta name="twitter:image" content="https://solarcdev.github.io/devon/image/image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./image/com.svg">
+    <link rel="shortcut icon" href="./image/com.svg">
+
+    <meta name="theme-color" content="#39FF14">
+
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/about.css">
     <link rel="stylesheet" href="./css/nav.css">
     <link rel="stylesheet" href="./css/recruit.css">
@@ -172,6 +51,18 @@
 <body>
 
     <div id="cursor-dot"></div>
+
+    <div id="boot-screen">
+        <div id="boot-text"></div>
+    </div>
+
+    <div id="side-terminal">
+    <div class="scroll-status">
+        <div class="scroll-label">DATA_SYNC_STEP</div>
+        <div id="scroll-pixels">[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</div>
+        <div id="scroll-percent">00%</div>
+    </div>
+</div>
 
     <nav class="sticky-nav">
         <div class="nav-container">
@@ -198,7 +89,6 @@
             </ul>
         </div>
     </nav>
-
     <section id="hero" class="hero" style="position: relative; overflow: hidden;">
         <canvas id="hero-glitch-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></canvas>
         
@@ -208,10 +98,7 @@
             <p>2026 데브온과 함께하실 분을 구합니다.</p>
             <p class="cursor-blink">_</p>
         </div>
-    </section>
-
-
-    
+    </section>    
     <section id="about">
         <div class="about-container">
             <div class="about-text-content">
@@ -238,7 +125,7 @@
                     <div class="content-box">
                         <h3>이과를 위한 필요충분조건</h3>
                         <p>컴공만 데브온에 와야 하는게 아닙니다. 코딩은 시뮬레이션, 데이터 분석, 자동화 등 다양한 분야에 활용됩니다. 생기부에 자신의 진로와 코딩을 버무리면
-                            아주 맛있는 생기부가 되겠죠. 경제는 데이터 분석, 물리와 화학은 시뮬레이션, 화학은 자동화 등등. 이과이지만 아직 자세한 진로를 정하지 못하겠다면,
+                            아주 맛있는 생기부가 되겠죠. 데이터 분석, 시뮬레이션, 자동화 등등. 이과이지만 아직 명확한 진로를 정하지 못하겠다면,
                             데브온은 여러분을 위한 좋은 선택지입니다.</p>
                     </div>
                 </div>
@@ -252,7 +139,6 @@
             </div>
         </div>
     </section>
-
     <section id="recruit">
         <div class="recruit-header">
             <h2>02. RECRUIT</h2>
@@ -332,8 +218,8 @@
             <div class="recruit-action-area">
                 <p class="status-msg">if "위 지원서가 작동하지 않아요":</p>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSezctrmVVIi2fVb6p-HfacI_Sm-oNJiu8RKagvaxsOlrgGNtg/viewform" 
-                   target="_blank" 
-                   class="direct-apply-btn">
+                target="_blank" 
+                class="direct-apply-btn">
                     구글_폼으로_이동하기();
                 </a>
             </div>
@@ -341,12 +227,10 @@
 
 
     </section>
-
     <footer>
         <p>기장 1204 권호준 / @kw0nh0jun</p>
         <p>© 2026 DEV-ON. ALL RIGHTS RESERVED.</p>
     </footer>
-
     <script src="./javascript/index.js"></script>
     <script src="./javascript/hero.js"></script>
     <script src="./javascript/about.js"></script>

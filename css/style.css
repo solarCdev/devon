@@ -1,0 +1,255 @@
+/* 모든 요소에 적용되는 선택 색상 */
+::selection {
+    background-color: var(--main-color); /* 형광 연두 배경 */
+    color: var(--bg-color);              /* 검정색 글자 */
+}
+
+/* 파이어폭스 브라우저 대응 */
+::-moz-selection {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+}
+
+/* 1. 기본 스타일 및 테마 설정 */
+:root {
+    --bg-color: #000000;
+    --main-color: #39FF14; /* 형광 연두 */
+    --point-color: #FF00FF; /* 핫핑크 (포스터 포인트 컬러) */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none; /* 커스텀 커서를 위해 기본 커서 숨김 */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--main-color);
+    font-family: 'Wanted';
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 2. CRT 모니터 효과 (Scanlines) */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 999;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+}
+
+@media (max-width: 900px) {
+    #cursor-dot {
+        display: none;
+    }
+
+    *{
+        cursor: default;
+    }
+}
+/* 3. 색상 반전 커서 */
+#cursor-dot {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    mix-blend-mode: difference; /* 색상 반전 핵심 */
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, transform 0.1s ease-out;
+}
+
+#cursor-dot.active {
+    width: 120px; /* 원하는 확대 크기 */
+    height: 120px;
+}
+
+
+/* 4. 레이아웃 구조 */
+section {
+    min-height: 100vh;
+    padding: 80px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 2px solid var(--main-color);
+}
+
+.hero {
+    text-align: center;
+    border-bottom: 5px solid var(--main-color);
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-decoration: underline;
+    font-family: "Galmuri";
+}
+
+/* 5. 지원서 영역 (Iframe) */
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    border: 2px solid var(--point-color);
+}
+
+iframe {
+    width: 100%;
+    height: 800px;
+    border: none;
+}
+iframe:hover #cursor-dot {
+    display: none;
+}
+
+footer {
+    padding: 40px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.content-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* 애니메이션 */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+.cursor-blink {
+    animation: blink 1s infinite;
+}
+
+a {
+    color: var(--point-color);
+}
+
+button:hover, .direct-apply-btn:hover {
+    font-size: 24px;
+}
+
+/* 클릭 지점에서 튀어나올 사각형 파편 */
+.click-shard {
+    position: fixed;
+    width: var(--size);
+    height: var(--size);
+    background: var(--main-color);
+    pointer-events: none;
+    z-index: 12000;
+    box-shadow: 0 0 10px var(--main-color);
+    animation: shard-burst 0.6s cubic-bezier(0.1, 1, 0.3, 1) forwards;
+}
+
+@keyframes shard-burst {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) rotate(var(--tr)); opacity: 0; }
+}
+
+.decode-load {
+    opacity: 0;
+    filter: blur(2px); /* 처음엔 살짝 흐릿하게 */
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.decode-load.active {
+    opacity: 1;
+    filter: blur(0px); /* 나타나면서 선명해짐 */
+}
+
+
+#side-terminal {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 9999; /* 최상단 유지 */
+    font-family: 'Galmuri', sans-serif;
+    color: var(--main-color);
+    pointer-events: none; /* 클릭 방해 금지 */
+}
+
+.scroll-status {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-right: 3px solid var(--main-color);
+    text-align: right;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-label {
+    font-size: 9px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+#scroll-pixels {
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin: 5px 0;
+    text-shadow: 0 0 5px var(--main-color);
+}
+
+#scroll-percent {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* 클릭 파동(Ripple) 효과 */
+.click-ripple {
+    position: fixed;
+    border: 2px solid var(--main-color);
+    border-radius: 50%;
+    background: rgba(var(--main-color-rgb), 0.1); /* 메인 컬러의 투명한 버전 */
+    pointer-events: none;
+    z-index: 11999;
+    transform: translate(-50%, -50%);
+    animation: ripple-out 0.6s ease-out forwards;
+}
+
+@keyframes ripple-out {
+    0% { width: 0; height: 0; opacity: 1; border-width: 5px; }
+    100% { width: 200px; height: 200px; opacity: 0; border-width: 1px; }
+}
+
+/* 파편(Shard) 스타일 보강 */
+.click-shard {
+    position: fixed;
+    width: var(--size); height: var(--size);
+    background: var(--main-color);
+    pointer-events: none;
+    z-index: 12000;
+    box-shadow: 0 0 8px var(--main-color);
+    animation: shard-burst 0.5s cubic-bezier(0.1, 1, 0.3, 1) forwards;
+}
+
+@keyframes shard-burst {
+    to { transform: translate(var(--tx), var(--ty)) rotate(var(--tr)); opacity: 0; }
+}
+
+/* CLICKED(); 자막 */
+.click-cmd-text {
+    position: fixed;
+    font-family: 'Galmuri'; font-size: 14px; font-weight: bold;
+    color: var(--main-color); pointer-events: none; z-index: 12001;
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+    animation: cmd-float 0.8s ease-out forwards;
+}
+
+@keyframes cmd-float {
+    0% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+    100% { transform: translate(-50%, -80%) scale(1); opacity: 0; }
+}
