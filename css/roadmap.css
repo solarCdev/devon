@@ -1,0 +1,161 @@
+#roadmap-sticky-wrapper {
+    height: 150vh; /* 150vh보다 조금 더 여유를 줘서 '스킵' 방지 */
+    position: relative;
+    margin: -10vh 0; /* 위아래 섹션과의 간격을 물리적으로 좁힘 */
+}
+
+.sticky-content {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 중앙이 아니라 위에서 시작 */
+    padding-top: 10vh; /* 여기서 본문과의 거리를 미세하게 조정하세요 */
+    overflow: hidden;
+}
+
+.horizontal-track {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    /* 왼쪽 여백을 주어 첫 카드가 화면 안쪽에서 시작하게 함 */
+    padding-left: 60vw; 
+    padding-right: 20vw;
+    align-items: center;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); /* 스크롤 튐 방지 감속 */
+}
+
+/* 각 카드 컨테이너 */
+.process-node {
+    flex-shrink: 0; /* 중요: 화면이 좁아도 너비를 절대 줄이지 않음 */
+    width: 300px;
+    height: 450px;
+    margin: 0 40px;
+}
+
+.node-icon {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--main-color);
+    font-family: 'Galmuri', monospace;
+    margin-bottom: 10px;
+}
+
+/* 2. 번호 아래 구분선: 장식 빼고 '실선' 느낌으로 */
+.content-divider {
+    width: 100%;
+    height: 1px; /* 얇은 실선 */
+    background-color: var(--main-color); /* 단색으로 깔끔하게 */
+    margin-bottom: 25px;
+    opacity: 0.8;
+}
+
+/* 3. 본문 콘텐츠 계층화 */
+.node-content h4 {
+    font-size: 1.1rem;
+    font-family: 'Galmuri', monospace;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.node-content p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+/* 4. 카드 디자인: 배경 투명도와 보더만 유지 */
+.node-card {
+    /* 기존 속성 중 아래 항목 위주로 정리 */
+    background: rgba(10, 10, 10, 0.7); /* 좀 더 차분한 배경 */
+    border: 1px solid rgba(57, 255, 20, 0.3); /* 보더는 연하게 */
+    border-top: 3px solid var(--main-color); /* 상단에만 포인트를 줘서 계층 강조 */
+    padding: 30px 25px;
+    min-height: 400px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 커넥터 화살표 */
+.process-connector {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Galmuri', monospace;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--main-color); /* 기본은 형광 초록 */
+    letter-spacing: -2px;
+    padding: 0 20px;
+    user-select: none;
+    
+    /* 애니메이션 적용 */
+    animation: arrow-flow 1.5s infinite ease-in-out;
+}
+
+
+@keyframes arrow-flow {
+    0% {
+        transform: translateX(-10px);
+        color: var(--main-color);
+        text-shadow: none;
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateX(5px);
+        color: var(--point-color); /* 핫핑크 */
+        text-shadow: 0 0 10px var(--point-color), 0 0 20px var(--point-color);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(15px);
+        color: var(--main-color);
+        text-shadow: none;
+        opacity: 0.5;
+    }
+}
+
+.card-footer {
+    padding: 24px;
+    margin-top: 48px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    /* border-image: linear-gradient(90deg, #37ff1400 0%, var(--main-color) 50%, #37ff1400 100%);  */
+    border-image-slice: 1;
+    text-align: center;
+    font-family: 'Galmuri', monospace;
+}
+
+
+/* 호버 시 플로팅 효과 */
+.node-card:hover {
+    /* 1. 위로 살짝 이동 (Y축 -10px) */
+    transform: translateY(-10px);
+    
+    /* 2. 테두리를 조금 더 밝게 강조 */
+    border-color: var(--main-color);
+    
+    /* 3. 바닥에 은은한 네온 그림자 (공중에 뜬 느낌) */
+    box-shadow: 0 10px 30px rgba(57, 255, 20, 0.15);
+}
+
+/* 호버 시 내부 번호와 선도 같이 반응하게 하려면 */
+.node-card:hover .node-icon {
+    text-shadow: 0 0 15px var(--main-color);
+    transition: text-shadow 0.3s ease;
+}
+
+.node-card:hover .node-divider {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* 화살표마다 딜레이를 주어 순차적으로 흐르게 함 */
+.process-connector:nth-child(2) { animation-delay: 0.1s; }
+.process-connector:nth-child(4) { animation-delay: 0.3s; }
+.process-connector:nth-child(6) { animation-delay: 0.5s; }
+.process-connector:nth-child(8) { animation-delay: 0.7s; }

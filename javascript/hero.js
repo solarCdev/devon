@@ -24,7 +24,7 @@ function drawGlitch() {
 
     // 3. 마우스 주변 RGB 분리 및 강렬한 노이즈
     if (mouse.active) {
-        const dist = 200; // 마우스 영향 범위
+        const dist = 150; // 마우스 영향 범위
         
         for (let i = 0; i < 20; i++) { // 노이즈 밀도
             const sliceX = centerX - 400 + Math.random() * 800;

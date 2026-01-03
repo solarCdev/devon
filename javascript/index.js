@@ -150,7 +150,7 @@ function decodeEffect(element) {
         char: char,
         isDone: char === " " || char === "\n", // 공백/줄바꿈은 즉시 완료
         // 10~40 프레임 사이에서 랜덤하게 종료 시점 결정
-        framesToLive: Math.floor(Math.random() * 20) + 10 
+        framesToLive: Math.floor(Math.random() * 10) + 10 
     }));
 
     const interval = setInterval(() => {
@@ -189,7 +189,7 @@ const decodeObserver = new IntersectionObserver((entries) => {
 // 초기 실행 함수
 function initDecodeLoader() {
     // 효과를 적용할 태그들을 선택 (p, h1, h2, li 등)
-    const targets = document.querySelectorAll('h1, h2, h3, .nav-logo');
+    const targets = document.querySelectorAll('h1, h2, h3, h4, .nav-logo');
     targets.forEach(target => {
         if (target.innerText.trim().length > 0) {
             target.classList.add('decode-load');
